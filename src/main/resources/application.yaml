@@ -1,33 +1,35 @@
-
 server:
   port: 8082  # The port your client app runs on
 
 spring:
   application:
-    name: restaurant-service   # Unique service name registered in Eureka
+    name: USER-SERVICE   # Unique service name registered in Eureka
+
   datasource:
     url: jdbc:oracle:thin:@//192.168.12.111:1521/XE
     username: C##awsuser
     password: awsuser123
     driver-class-name: oracle.jdbc.OracleDriver
+
   jpa:
     hibernate:
       ddl-auto: update
-  properties:
-    hibernate:
+    show-sql: true        # <-- FIXED: must be under jpa
+    properties:
+      hibernate:
       dialect: org.hibernate.dialect.Oracle21cDialect
-    show-sql: true
+
   cloud:
     compatibility-verifier:
-      enabled: false  # Optional: disables Spring Cloud version compatibility check
+      enabled: false
 
 eureka:
   client:
-    register-with-eureka: true     # Register this application as a Eureka client
-    fetch-registry: true           # Fetch registry from the Eureka server
+    register-with-eureka: true
+    fetch-registry: true
     service-url:
-      defaultZone: http://localhost:8761/eureka/  # Eureka Server URL
+      defaultZone: http://localhost:8761/eureka/
 
   instance:
-    prefer-ip-address: true        # Register using IP instead of hostname
-    instance-id: ${spring.application.name}:${server.port}  # Unique instance ID
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${server.port}
