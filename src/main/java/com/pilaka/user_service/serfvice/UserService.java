@@ -24,34 +24,32 @@ public class UserService {
     private final UserMapper userMapper;
 
 
-
-
-
-
     public UserService(UserMapper userMapper) {
         this.userMapper=userMapper;
     }
 
 
-    public AwsUserDTO addUser(AwsUserDTO userDTO) {
+    public AwsUser addUser(AwsUser user) {
+    //    AwsUser savedUser = userRepo.save(userMapper.mapUserDTOToUser(userDTO));
+        return userRepo.save(user);
+
+    }
+
+    public ResponseEntity<AwsUserDTO> fetchUserDetailsById(Long userId) {
+        System.out.println("1 User Service  fetchUserDetailsById");
+
+        Optional<AwsUser> fetchedUser =  userRepo.findById(userId);
+        System.out.println("user Id from repository" +userRepo.findById(userId));
+        AwsUserDTO user = userMapper.mapUserToUserDTO(userRepo.findById(userId).get());
+        AwsUser foudUser =userRepo.findById(userId).get();
+        return new ResponseEntity<>(user, HttpStatus.NOT_FOUND);
+
+    }
+    public AwsUserDTO addNewUser(AwsUserDTO userDTO) {
         AwsUser savedUser = userRepo.save(userMapper.mapUserDTOToUser(userDTO));
         return userMapper.mapUserToUserDTO(savedUser);
 
     }
-
-    public ResponseEntity<AwsUser> fetchUserDetailsById(Long userId) {
-        System.out.println("1 User Service  fetchUserDetailsById");
-        AwsUser foudUser =userRepo.findById(userId).get();
-        Optional<AwsUser> fetchedUser =  userRepo.findById(userId);
-        System.out.println("user Id from repository" +userRepo.findById(userId));
-       AwsUserDTO user = userMapper.mapUserToUserDTO(fetchedUser.get());
-       // System.out.println("User id " +user.toString());
-//        if(fetchedUser.isPresent())
-//            return new ResponseEntity<>userMapper.mapUserToUserDTO(fetchedUser.get(), HttpStatus.OK);
-        return new ResponseEntity<>(foudUser, HttpStatus.NOT_FOUND);
-
-    }
-
     public List<AwsUser> listUsers()
     {
         return  userRepo.findAll();

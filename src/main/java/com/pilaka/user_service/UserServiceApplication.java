@@ -24,21 +24,23 @@ public class UserServiceApplication {
 		return new RestTemplate();
 	}
 
-	@Bean
-	@LoadBalanced
-	public UserMapper userMapper() {
-		return new UserMapper() {
-			@Override
-			public AwsUser mapUserDTOToUser(AwsUserDTO userDTO) {
-				return null;
-			}
-
-			@Override
-			public AwsUserDTO mapUserToUserDTO(AwsUser user) {
-				return null;
-			}
-		};
-	}
+//	@Bean
+//	@LoadBalanced
+//	public UserMapper userMapper() {
+//		return new UserMapper() {
+//			@Override
+//			public AwsUser mapUserDTOToUser(AwsUserDTO userDTO) {
+//				return null;
+//			}
+//
+//
+//
+//			@Override
+//			public AwsUserDTO mapUserToUserDTO(AwsUser user) {
+//				return null;
+//			}
+//		};
+//	}
 
 
 
