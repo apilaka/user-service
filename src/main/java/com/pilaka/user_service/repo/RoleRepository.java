@@ -1,16 +1,16 @@
 package com.pilaka.user_service.repo;
 
 import com.pilaka.user_service.entity.AwsUser;
+import com.pilaka.user_service.entity.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Repository
-public interface AwsUserRepository extends JpaRepository<AwsUser, Long> {
-    Optional<AwsUser> findByUserName(String userName);
-    @Query(value = "SELECT AWS_USER_SEQ.NEXTVAL FROM dual", nativeQuery = true)
-    Long getNextUserId();
+public interface RoleRepository extends JpaRepository<UserRole, Long> {
+  UserRole findByRoleName(String roleName);
 
 }
