@@ -26,15 +26,17 @@ public class AwsUser {
             sequenceName = "AWS_USER_SEQ",
             allocationSize = 1
     )
-
+    private Long userId;
     private String userPassword;
     private String address;
     private String city;
-    private Long userId;
+//    private Set<Role> roles;
+
 
     @Column(unique = true)
     private String userName;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<UserRole> roles = new HashSet<>();
+    private Set<UserRole> userRoles = new HashSet<>();
+
 }

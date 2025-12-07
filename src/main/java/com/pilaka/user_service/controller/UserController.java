@@ -40,12 +40,14 @@ public class UserController {
     @PostMapping("/addNewUser")
     public ResponseEntity<AwsUserDTO> addNewUser(@RequestBody AwsUserDTO userDTO) {
         System.out.println("Adding new user");
-        return new ResponseEntity<>(userService.addNewUser(userDTO),HttpStatus.CREATED);
+        return new ResponseEntity<>(userService.createNewUser(userDTO),HttpStatus.CREATED);
     }
     @GetMapping("/listUsers")
     public List<AwsUser> listUsers(){
         return  userService.listUsers();
     }
+
+
     @GetMapping ("/findUserByUsername/{username}")
     public AwsUser findUserByUsername(@PathVariable String username){
         return this.userService.findByUserName(username);
@@ -68,7 +70,7 @@ public class UserController {
     @PostMapping("/updateUserWithRoles")
     public ResponseEntity<AwsUser> updateUserWithRoles(@RequestBody AwsUser user) {
 
-        userService.saveUserWithRoles(user, user.getRoles());
+     //   userService.saveUserWithRoles(user, user.getRoles());
         System.out.println("Adding new user");
         return new ResponseEntity<>(user,HttpStatus.CREATED);
 

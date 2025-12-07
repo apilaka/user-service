@@ -1,12 +1,15 @@
 package com.pilaka.user_service.dto;
 
 
+
+
+import com.pilaka.user_service.entity.Role;
 import com.pilaka.user_service.entity.UserRole;
-import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -20,6 +23,6 @@ public class AwsUserDTO {
     private String userPassword;
     private String address;
     private String city;
-    private Set<UserRole> roles;
+    private Set<UserRole> roles = new HashSet<>();
 
 }

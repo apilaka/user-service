@@ -6,11 +6,9 @@ import com.pilaka.user_service.entity.UserRole;
 import com.pilaka.user_service.mapper.UserMapper;
 import com.pilaka.user_service.repo.AwsUserRepository;
 import com.pilaka.user_service.repo.RoleRepository;
+import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
-import org.bouncycastle.jcajce.BCFKSLoadStoreParameter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -18,7 +16,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -29,6 +26,8 @@ public class UserService {
     private AwsUserRepository userRepo;
     @Autowired
     private final UserMapper userMapper;
+    @Autowired
+    private EntityManager entityManager;
 
     @Autowired
     private RoleRepository roleRepository;
@@ -52,66 +51,54 @@ public class UserService {
         AwsUserDTO user = userMapper.mapUserToUserDTO(userRepo.findById(userId).get());
         AwsUser foudUser =userRepo.findById(userId).get();
         return new ResponseEntity<>(user, HttpStatus.NOT_FOUND);
-        //S@ibaba1111
+
     }
     @Transactional
     public AwsUserDTO addNewUser(AwsUserDTO userDTO) {
         AwsUser userToSave = userMapper.mapUserDTOToUser(userDTO);
-        Set<UserRole> roles = userDTO.getRoles().stream()
-                .map(role -> roleRepository.findByRoleName(role.getRoleName()))
-                .collect(Collectors.toSet());
-        roles.forEach(role->role.setUser(userToSave));
-        userToSave.setRoles(roles);
+      // userToSave.setRoles(userDTO.getRoles());
+       // System.out.println(userToSave.getRoles());
+
+        userToSave.setUserId(userDTO.getUserId());
         AwsUser saved = userRepo.save(userToSave);
         return userMapper.mapUserToUserDTO(saved);
     }
-
-
     public List<AwsUser> listUsers()
     {
         return  userRepo.findAll();
     }
-
     public AwsUser findByUserName(String username){
         return  this.userRepo.findByUserName(username).get();
     }
 
-
     @Transactional
     public AwsUser saveUserWithRoles(AwsUser user, Set<UserRole> roles) {
-
         return transactionTemplate.execute(status -> {
-
-            // bind roles to user
-            roles.forEach(r -> r.setUser(user));
-            user.setRoles(user.getRoles());
-
-            // cascade handles role saving
             return userRepo.save(user);
         });
     }
-
-
-    public AwsUser createUser(AwsUser user) {
-
-        return transactionTemplate.execute(status -> {
-            try {
-                return userRepo.save(user);
-            } catch (Exception e) {
-                status.setRollbackOnly();  // manual rollback
-                throw e;
-            }
+    @Transactional
+    public AwsUserDTO createNewUser( AwsUserDTO userDTO) {
+        AwsUser existingUser =userMapper.mapUserDTOToUser(userDTO);
+        // update basic fields
+        existingUser.setUserName(userDTO.getUserName());
+        existingUser.setUserPassword(userDTO.getUserPassword());
+        existingUser.setAddress(userDTO.getAddress());
+        existingUser.setCity(userDTO.getCity());
+        AwsUser saved = userRepo.save(existingUser);
+        System.out.println("Roles are" +userDTO.getRoles());
+        userDTO.getRoles().forEach(role -> {
+            role.setUser(saved);    // Set FK
+            roleRepository.save(role);
         });
+        return userMapper.mapUserToUserDTO(saved);
     }
 
-    public void updateRoles(AwsUser user, List<UserRole> roles) {
+    @Transactional
+    public void updateRoles(){
+        UserRole role = new UserRole(1l, "ADMIN");
+        roleRepository.save(role);
 
-        transactionTemplate.execute(status -> {
-            user.getRoles().clear();
-            user.getRoles().addAll(roles);
-            return null;
-        });
     }
-
 }
 
