@@ -1,4 +1,4 @@
-package com.pilaka.user_service.serfvice;
+package com.pilaka.user_service.service;
 import com.pilaka.user_service.entity.AwsUser;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Encoders;

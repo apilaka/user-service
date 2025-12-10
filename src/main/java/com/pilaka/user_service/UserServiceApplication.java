@@ -3,7 +3,8 @@ package com.pilaka.user_service;
 import com.pilaka.user_service.dto.AwsUserDTO;
 import com.pilaka.user_service.entity.AwsUser;
 import com.pilaka.user_service.mapper.UserMapper;
-import com.pilaka.user_service.serfvice.JwtUtil;
+
+import com.pilaka.user_service.service.JwtUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;

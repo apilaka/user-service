@@ -1,6 +1,7 @@
-package com.pilaka.user_service.serfvice;
+package com.pilaka.user_service.service;
 
 import com.pilaka.user_service.entity.AwsUser;
+import com.pilaka.user_service.service.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class AuthService {
         String token =null;
 
         AwsUser user = this.userService.findByUserName(username);
-        if(user.getUserName().equals("apilaka") && user.getUserPassword().equals("securePassword123")) {
+        if(user.getUserName().equals("admin") && user.getUserPassword().equals("admin")) {
          token = jwtUtil.generateToken(user.toString());
        //  System.out.print("User from token: " +jwtUtil.extractUsername( token.toString()));
 

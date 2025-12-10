@@ -1,5 +1,6 @@
-package com.pilaka.user_service.serfvice;
+package com.pilaka.user_servicecls.service;
 
+import com.pilaka.user_service.service.JwtUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

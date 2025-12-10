@@ -1,16 +1,13 @@
 package com.pilaka.user_service.repo;
 
-import com.pilaka.user_service.entity.AwsUser;
+import com.pilaka.user_service.entity.Role;
 import com.pilaka.user_service.entity.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-import java.util.Set;
-
 @Repository
-public interface RoleRepository extends JpaRepository<UserRole, Long> {
-  UserRole findByRoleName(String roleName);
+public interface RoleRepository extends JpaRepository<Role, Long> {
+    Role findByName(String name);
+
 
 }

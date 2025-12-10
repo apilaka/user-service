@@ -23,6 +23,6 @@ public class AwsUserDTO {
     private String userPassword;
     private String address;
     private String city;
-    private Set<UserRole> roles = new HashSet<>();
+    private Set<String> roles = new HashSet<>();
 
 }

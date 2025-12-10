@@ -14,18 +14,22 @@ public interface UserMapper {
 
     AwsUserDTO mapUserToUserDTO(AwsUser user);
 
-    @Mapping(target = "userId", ignore = true)
-    AwsUser mapUserDTOToUser(AwsUserDTO dto);
+
 
     // Entity → DTO
-    @Mapping(target = "roleName", ignore = true)
+    @Mapping(target = "roleId", ignore = true)
     Role map(UserRole entity);
 
     // DTO → Entity
-    @Mapping(target = "id", ignore = true)
     @Mapping(target = "user", ignore = true)
+
     UserRole map(Role dto);
 
-    // Set<UserRole> → Set<Role>
-    Set<Role> map(Set<UserRole> entities);
+//    // Set<UserRole> → Set<Role>
+//    Set<Role> map(Set<UserRole> entities);
+
+    @Mapping(target = "userRoles", ignore = true)
+    AwsUser mapUserDTOToUser(AwsUserDTO dto);
+
+
 }

@@ -1,6 +1,5 @@
 package com.pilaka.user_service.config;
 
-import com.pilaka.user_service.serfvice.JwtAuthFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,9 +14,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 //@EnableWebSecurity
 public class SecurityConfig {
-
-    @Autowired
-    private JwtAuthFilter jwtAuthFilter;
+//
+//    @Autowired
+//    private JwtAuthFilter jwtAuthFilter;
 
 //    @Bean
 //    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
