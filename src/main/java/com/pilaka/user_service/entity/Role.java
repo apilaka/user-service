@@ -7,8 +7,7 @@ import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
-@Getter
-@Setter
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -20,6 +19,30 @@ public class Role {
 
     @Column(unique = true)
     private String name;
+
+    public Long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<UserRole> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(Set<UserRole> userRoles) {
+        this.userRoles = userRoles;
+    }
 
     @OneToMany(mappedBy = "role")
     @JsonBackReference("role-userRole")

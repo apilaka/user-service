@@ -21,7 +21,7 @@ public interface UserMapper {
     Role map(UserRole entity);
 
     // DTO → Entity
-    @Mapping(target = "awsUser", ignore = true)
+    @Mapping(target = "user", ignore = true)
 
     UserRole map(Role dto);
 

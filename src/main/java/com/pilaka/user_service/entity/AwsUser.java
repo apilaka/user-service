@@ -10,8 +10,7 @@ import java.util.Set;
 
 
 @Entity
-@Getter
-@Setter
+
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -26,16 +25,53 @@ public class AwsUser {
             sequenceName = "AWS_USER_SEQ",
             allocationSize = 1
     )
+    private Long userId;
+
     @Column(unique = true)
     private String userName;
-    private Long userId;
     private String userPassword;
     private String address;
     private String city;
-//    private Set<Role> roles;
 
+    public String getUserName() {
+        return userName;
+    }
 
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+    public String getUserPassword() {
+        return userPassword;
+    }
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
+    }
+    public String getAddress() {
+        return address;
+    }
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    public String getCity() {
+        return city;
+    }
+    public void setCity(String city) {
+        this.city = city;
+    }
+    public Set<UserRole> getUserRoles() {
+        return userRoles;
+    }
+    public void setUserRoles(Set<UserRole> userRoles) {
+        this.userRoles = userRoles;
+    }
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference("user-userRole")

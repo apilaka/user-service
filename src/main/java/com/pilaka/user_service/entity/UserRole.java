@@ -32,5 +32,35 @@ public class UserRole {
     @JsonManagedReference("role-userRole")
     private Role role;
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public AwsUser getUser() {
+        return user;
+    }
+
+    public void setUser(AwsUser user) {
+        this.user = user;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 }
