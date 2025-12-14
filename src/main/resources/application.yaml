@@ -6,10 +6,10 @@ spring:
     name: USER-SERVICE   # Unique service name registered in Eureka
 
   datasource:
-#    url: jdbc:oracle:thin:@//192.168.12.111:1521/XE
-#    username: C##awsuser
-#    password: awsuser123
-#    driver-class-name: oracle.jdbc.OracleDriver
+    #    url: jdbc:oracle:thin:@//192.168.12.111:1521/XE
+    #    username: C##awsuser
+    #    password: awsuser123
+    #    driver-class-name: oracle.jdbc.OracleDriver
 
     url: jdbc:mysql://localhost:3306/awsuserdb
     username: root
@@ -22,7 +22,7 @@ spring:
     show-sql: true        # <-- FIXED: must be under jpa
     properties:
       hibernate:
-     # dialect: org.hibernate.dialect.Oracle21cDialect
+      # dialect: org.hibernate.dialect.Oracle21cDialect
       dialect:   org.hibernate.dialect.MySQL8Dialect
 
   cloud:
@@ -40,7 +40,7 @@ eureka:
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${server.port}
 jwt:
-    :secret:
-        Yf7PZqB8mQ0nR4g2H9dT2aE6F4pK8cV1J3mN6xQ2zW8bR0fH7uC9tE5vP3aL6d=
-    :expiration:
-        3600000
+  :secret:
+    Yf7PZqB8mQ0nR4g2H9dT2aE6F4pK8cV1J3mN6xQ2zW8bR0fH7uC9tE5vP3aL6d=
+  :expiration:
+    3600000

@@ -1,0 +1,6 @@
+FROM adoptopenjdk/openjdk11:jdk-11.0.2.9-slim
+WORKDIR /opt
+copy target/*.jar /opt/user-service-0.0.1cd.jar
+ENTRYPOINT exec java $JAVA_OPTS -jar user-service-0.0.1.jar
+
+
