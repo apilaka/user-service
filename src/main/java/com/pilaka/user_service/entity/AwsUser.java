@@ -1,18 +1,17 @@
 package com.pilaka.user_service.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import com.pilaka.user_service.entity.Role;
+import lombok.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -27,6 +26,8 @@ public class AwsUser {
             sequenceName = "AWS_USER_SEQ",
             allocationSize = 1
     )
+    @Column(unique = true)
+    private String userName;
     private Long userId;
     private String userPassword;
     private String address;
@@ -34,10 +35,10 @@ public class AwsUser {
 //    private Set<Role> roles;
 
 
-    @Column(unique = true)
-    private String userName;
+
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("user-userRole")
     private Set<UserRole> userRoles = new HashSet<>();
 
 }

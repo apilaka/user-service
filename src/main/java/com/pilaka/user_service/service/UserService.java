@@ -11,10 +11,7 @@ import com.pilaka.user_service.repo.AwsUserRepository;
 import com.pilaka.user_service.repo.RoleRepository;
 import jakarta.transaction.Transactional;
 
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -22,7 +19,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -86,20 +82,21 @@ public class UserService {
         //S@ibaba1111
     }
 //
-//    @Transactional
-//    public AwsUserDTO addNewUser(AwsUserDTO userDTO) {
-//        AwsUser userToSave = userMapper.mapUserDTOToUser(userDTO);
-////        Set<UserRole> roles = userDTO.getRoles().stream()
-////                .map(role -> roleRepository.findByRoleName(role.getRoleName()))
-////                .collect(Collectors.toSet());
-//        //roles.forEach(role->role.setUser(userToSave));
-//        // userToSave.setRoles(roles);
-//        AwsUser saved = userRepo.save(userToSave);
-//        return userMapper.mapUserToUserDTO(saved);
-//    }
+    @Transactional
+    public AwsUser addNewUser(AwsUserDTO userDTO) {
+        AwsUser userToSave = userMapper.mapUserDTOToUser(userDTO);
+//        Set<UserRole> roles = userDTO.getRoles().stream()
+//                .map(role -> roleRepository.findByRoleName(role.getRoleName()))
+//                .collect(Collectors.toSet());
+        //roles.forEach(role->role.setUser(userToSave));
+        // userToSave.setRoles(roles);
+        AwsUser saved = userRepo.save(userToSave);
+        return userToSave;
+    }
 //
 
-    public List<AwsUser> listUsers() {
+@Transactional
+public List<AwsUser> listUsers() {
         return userRepo.findAll();
     }
 

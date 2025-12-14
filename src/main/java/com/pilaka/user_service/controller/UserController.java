@@ -6,12 +6,17 @@ import com.pilaka.user_service.entity.AwsUser;
 
 import com.pilaka.user_service.service.AuthService;
 import com.pilaka.user_service.service.UserService;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static org.hibernate.Hibernate.initialize;
 
 
 @RestController
@@ -40,16 +45,17 @@ public class UserController {
         System.out.println("User Id is : "+user.toString());
         return ResponseEntity.ok(userService.fetchUserDetailsById(userId).getBody());
     }
-//    @PostMapping("/addNewUser")
-//    public ResponseEntity<AwsUserDTO> addNewUser(@RequestBody AwsUserDTO userDTO) {
-//        System.out.println("Adding new user");
-//
-//        AwsUser user =
-//        return new ResponseEntity<>(userService.addUser(userDTO),HttpStatus.CREATED);
-//    }
-    @GetMapping("/listUsers")
+    @PostMapping(value ="/addNewUser", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AwsUser> addNewUser(@RequestBody AwsUserDTO userDTO) {
+        System.out.println("Adding new user");
+
+        return new ResponseEntity<>(userService.addUser(userDTO),HttpStatus.CREATED);
+    }
+
+    @GetMapping(value="/listUsers",    produces = MediaType.APPLICATION_JSON_VALUE)
     public List<AwsUser> listUsers(){
-        return  userService.listUsers();
+       Hibernate.initialize(userService.listUsers());
+    return userService.listUsers().stream().toList();
     }
 
 
